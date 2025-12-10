@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login | MindSpace</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary: #6D8B74;
+  --secondary: #EFEAD8;
+  --text: #3D3D3D;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: var(--secondary);
+}
+
+header {
+  background: white;
+  padding: 15px;
+}
+
+nav {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.nav-links a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.login-box {
+  max-width: 400px;
+  margin: 120px auto;
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+}
+
+h2 {
+  text-align: center;
+  color: var(--primary);
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  margin-top: 20px;
+}
+
+p { text-align: center; }
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <nav>
+    <strong>MindSpace</strong>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="signup.html">Sign Up</a>
+    </div>
+  </nav>
+</header>
+
+<div class="login-box">
+  <h2>Login</h2>
+
+  <form id="loginForm">
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button type="submit">Login</button>
+    <p id="loginMsg"></p>
+  </form>
+</div>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  let validUser = users.find(user => 
+    user.email === email && user.password === password
+  );
+
+  if (validUser) {
+    localStorage.setItem("currentUser", JSON.stringify(validUser));
+    loginMsg.innerText = "✅ Login successful!";
+    loginMsg.style.color = "green";
+
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 1000);
+  } 
+  else {
+    loginMsg.innerText = "❌ Invalid credentials";
+    loginMsg.style.color = "red";
+  }
+});
+</script>
+
+</body>
+</html>

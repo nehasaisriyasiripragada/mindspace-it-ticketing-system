@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Therapists | MindSpace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <style>
+        /* === Global Styles === */
+        :root {
+            --primary: #6D8B74;
+            --secondary: #EFEAD8;
+            --accent: #D0B8A8;
+            --text: #3D3D3D;
+            --light: #F5F5F5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--secondary);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* === Header === */
+        header {
+            padding: 20px 0;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo i {
+            font-size: 28px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links a {
+            margin-left: 25px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* === Hero Section === */
+        .therapists-hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(rgba(109, 139, 116, 0.1), rgba(239, 234, 216, 0.3));
+        }
+
+        .therapists-hero h1 {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .therapists-hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* === Filter Section === */
+        .filters {
+            padding: 30px 0;
+            background-color: white;
+        }
+
+        .filter-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            min-width: 200px;
+        }
+
+        .filter-group label {
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary);
+        }
+
+        .filter-group select, .filter-group input {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: var(--secondary);
+        }
+
+        /* === Therapists Grid === */
+        .therapists {
+            padding: 60px 0;
+            background-color: var(--secondary);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 50px;
+        }
+
+        .therapists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .therapist-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .therapist-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .therapist-image {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .therapist-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .therapist-card:hover .therapist-image img {
+            transform: scale(1.05);
+        }
+
+        .therapist-info {
+            padding: 25px;
+        }
+
+        .therapist-info h3 {
+            font-size: 22px;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .therapist-specialty {
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .therapist-bio {
+            margin-bottom: 20px;
+        }
+
+        .therapist-expertise {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .expertise-tag {
+            background-color: var(--secondary);
+            color: var(--primary);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+
+        /* === Booking Modal === */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            color: var(--primary);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text);
+        }
+
+        .booking-form {
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .calendar-container {
+            margin: 20px 0;
+        }
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .time-slot {
+            padding: 10px;
+            background-color: var(--secondary);
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .time-slot:hover, .time-slot.selected {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* === Footer === */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .social-icons {
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            margin: 0 10px;
+        }
+
+        /* === Responsive === */
+        @media (max-width: 768px) {
+            .therapists-hero h1 {
+                font-size: 36px;
+            }
+            .therapists-grid {
+                grid-template-columns: 1fr;
+            }
+            .filter-group {
+                width: 100%;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <span>MindSpace</span>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="therapists.html">Therapists</a>
+                    <a href="blogs.html">Blogs</a>
+                    <a href="about.html">About</a>
+                    <a href="login.html">Login</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="therapists-hero">
+        <div class="container">
+            <h1>Find Your Perfect Therapist</h1>
+            <p>Connect with licensed professionals who specialize in your specific needs. Healing begins with the right match.</p>
+        </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="filters">
+        <div class="container">
+            <div class="filter-container">
+                <div class="filter-group">
+                    <label for="specialty">Specialty</label>
+                    <select id="specialty">
+                        <option value="">All Specialties</option>
+                        <option value="anxiety">Anxiety</option>
+                        <option value="depression">Depression</option>
+                        <option value="trauma">Trauma</option>
+                        <option value="relationships">Relationships</option>
+                        <option value="ocd">OCD</option>
+                        <option value="ptsd">PTSD</option>
+                        <option value="adhd">ADHD</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="location">Location</label>
+                    <select id="location">
+                        <option value="">All Locations</option>
+                        <option value="downtown">Downtown</option>
+                        <option value="westside">Westside</option>
+                        <option value="eastside">Eastside</option>
+                        <option value="north">North Area</option>
+                        <option value="south">South Area</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="availability">Availability</label>
+                    <select id="availability">
+                        <option value="">Any Time</option>
+                        <option value="morning">Morning</option>
+                        <option value="afternoon">Afternoon</option>
+                        <option value="evening">Evening</option>
+                        <option value="weekend">Weekend</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="insurance">Insurance</label>
+                    <select id="insurance">
+                        <option value="">Any Insurance</option>
+                        <option value="bluecross">BlueCross</option>
+                        <option value="aetna">Aetna</option>
+                        <option value="cigna">Cigna</option>
+                        <option value="medicare">Medicare</option>
+                        <option value="selfpay">Self Pay</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Therapists Grid -->
+    <section class="therapists">
+        <div class="container">
+            <h2 class="section-title">Our Trusted Therapists</h2>
+            <div class="therapists-grid">
+                <!-- Therapist 1 -->
+                <div class="therapist-card">
+                    <div class="therapist-image">
+                        <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Dr. Sarah Johnson">
+                    </div>
+                    <div class="therapist-info">
+                        <h3>Dr. Sarah Johnson</h3>
+                        <span class="therapist-specialty">Clinical Psychologist • Downtown</span>
+                        <p class="therapist-bio">Specializing in anxiety disorders, panic attacks and cognitive behavioral therapy (CBT) for teens with 12 years of experience.</p>
+                        <div class="therapist-expertise">
+                            <span class="expertise-tag">Anxiety</span>
+                            <span class="expertise-tag">CBT</span>
+                            <span class="expertise-tag">Stress</span>
+                            <span class="expertise-tag">Mindfulness</span>
+                        </div>
+                        <button class="btn btn-primary book-btn" data-therapist="Dr. Sarah Johnson">Book Session</button>
+                    </div>
+                </div>
+
+                <!-- Therapist 2 -->
+                <div class="therapist-card">
+                    <div class="therapist-image">
+                        <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Michael Chen">
+                    </div>
+                    <div class="therapist-info">
+                        <h3>Michael Chen, LCSW</h3>
+                        <span class="therapist-specialty">Licensed Clinical Social Worker • Westside</span>
+                        <p class="therapist-bio">Trauma specialist focusing on EMDR and somatic experiencing for PTSD and childhood trauma.</p>
+                        <div class="therapist-expertise">
+                            <span class="expertise-tag">Trauma</span>
+                            <span class="expertise-tag">PTSD</span>
+                            <span class="expertise-tag">EMDR</span>
+                            <span class="expertise-tag">Men's Issues</span>
+                        </div>
+                        <button class="btn btn-primary book-btn" data-therapist="Michael Chen, LCSW">Book Session</button>
+                    </div>
+                </div>
+
+                <!-- Therapist 3 -->
+                <div class="therapist-card">
+                    <div class="therapist-image">
+                        <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80" alt="Dr. Priya Patel">
+                    </div>
+                    <div class="therapist-info">
+                        <h3>Dr. Priya Patel</h3>
+                        <span class="therapist-specialty">Psychiatrist • Eastside</span>
+                        <p class="therapist-bio">Board-certified psychiatrist specializing in medication management and depression treatment.</p>
+                        <div class="therapist-expertise">
+                            <span class="expertise-tag">Depression</span>
+                            <span class="expertise-tag">Medication</span>
+                            <span class="expertise-tag">Bipolar</span>
+                            
+                        </div>
+                        <button class="btn btn-primary book-btn" data-therapist="Dr. Priya Patel">Book Session</button>
+                    </div>
+                </div>
+
+                <!-- Therapist 4 -->
+                <div class="therapist-card">
+                    <div class="therapist-image">
+                        <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1128&q=80" alt="Jamal Williams">
+                    </div>
+                    <div class="therapist-info">
+                        <h3>Jamal Williams, LMFT</h3>
+                        <span class="therapist-specialty">Marriage & Family Therapist • North Area</span>
+                        <p class="therapist-bio">Relationship expert helping couples and families improve communication and resolve conflicts.</p>
+                        <div class="therapist-expertise">
+                            <span class="expertise-tag">Couples</span>
+                            <span class="expertise-tag">Family</span>
+                            <span class="expertise-tag">Relationships</span>
+                            <span class="expertise-tag">Communication</span>
+                        </div>
+                        <button class="btn btn-primary book-btn" data-therapist="Jamal Williams, LMFT">Book Session</button>
+                    </div>
+                </div>
+
+                <!-- Therapist 5 -->
+                <div class="therapist-card">
+                    <div class="therapist-image">
+                        <img src="https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80" alt="Elena Rodriguez">
+                    </div>
+                    <div class="therapist-info">
+                        <h3>Elena Rodriguez, PsyD</h3>
+                        <span class="therapist-specialty">Child Psychologist • Development Psychologist • South Area</span>
+                        <p class="therapist-bio">Specializing in play therapy and adolescent mental health with bilingual services available.</p>
+                        <div class="therapist-expertise">
+                            <span class="expertise-tag">Children</span>
+                            <span class="expertise-tag">Teens</span>
+                            <span class="expertise-tag">Play Therapy</span>
+                            <span class="expertise-tag">ADHD</span>
+                            <span class="expertise-tag">Applied Behavior</span>
+                        </div>
+                        <button class="btn btn-primary book-btn" data-therapist="Elena Rodriguez, PsyD">Book Session</button>
+                    </div>
+                </div>
+
+                <!-- Therapist 6 -->
+                <div class="therapist-card">
+                    <div class="therapist-image">
+                        <img src="https://images.unsplash.com/photo-1551190822-a9333d879b1f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Dr. David Kim">
+                    </div>
+                    <div class="therapist-info">
+                        <h3>Dr. David Kim</h3>
+                        <span class="therapist-specialty">Neuropsychologist • Forensic • Downtown</span>
+                        <p class="therapist-bio">Expert in cognitive assessments and treatment for ADHD, autism spectrum, and learning disabilities.</p>
+                        <div class="therapist-expertise">
+                            <span class="expertise-tag">ADHD</span>
+                            <span class="expertise-tag">Autism</span>
+                            <span class="expertise-tag">Learning Disabilities</span>
+                            <span class="expertise-tag">Testing</span>
+                        </div>
+                        <button class="btn btn-primary book-btn" data-therapist="Dr. David Kim">Book Session</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTherapistName">Book Session</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form class="booking-form" id="bookingForm">
+                <input type="hidden" id="therapistName" name="therapistName">
+                
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="concern">Primary Concern</label>
+                    <select id="concern" name="concern" required>
+                        <option value="">Select your primary concern</option>
+                        <option value="anxiety">Anxiety/Stress</option>
+                        <option value="depression">Depression</option>
+                        <option value="trauma">Trauma/PTSD</option>
+                        <option value="relationship">Relationship Issues</option>
+                        <option value="ocd">OCD</option>
+                        <option value="adhd">ADHD</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="details">Brief Description</label>
+                    <textarea id="details" name="details" placeholder="Please describe what you'd like to focus on in your session"></textarea>
+                </div>
+                
+                <div class="calendar-container">
+                    <label>Select Date</label>
+                    <input type="text" id="bookingDate" class="flatpickr" placeholder="Select date" required>
+                </div>
+                
+                <div class="time-slots">
+                    <div class="time-slot">9:00 AM</div>
+                    <div class="time-slot">10:30 AM</div>
+                    <div class="time-slot">12:00 PM</div>
+                    <div class="time-slot">2:00 PM</div>
+                    <div class="time-slot">3:30 PM</div>
+                    <div class="time-slot">5:00 PM</div>
+                    <div class="time-slot">6:30 PM</div>
+                </div>
+                
+                <input type="hidden" id="selectedTime" name="selectedTime">
+                
+                <button type="submit" class="btn btn-primary">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="therapists.html">Therapists</a>
+                <a href="blogs.html">Blogs</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <p>&copy; 2023 MindSpace. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        // Initialize calendar
+        flatpickr("#bookingDate", {
+            minDate: "today",
+            maxDate: new Date().fp_incr(30), // 30 days from now
+            disable: [
+                function(date) {
+                    // Disable weekends
+                    return (date.getDay() === 0 || date.getDay() === 6);
+                }
+            ]
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('bookingModal');
+        const bookButtons = document.querySelectorAll('.book-btn');
+        const closeModal = document.querySelector('.close-modal');
+        const therapistNameField = document.getElementById('therapistName');
+        const modalTherapistName = document.getElementById('modalTherapistName');
+        const timeSlots = document.querySelectorAll('.time-slot');
+        const selectedTimeField = document.getElementById('selectedTime');
+
+        // Open modal when book button is clicked
+        bookButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const therapistName = button.getAttribute('data-therapist');
+                therapistNameField.value = therapistName;
+                modalTherapistName.textContent = `Book Session with ${therapistName}`;
+                modal.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Time slot selection
+        timeSlots.forEach(slot => {
+            slot.addEventListener('click', () => {
+                // Remove selected class from all slots
+                timeSlots.forEach(s => s.classList.remove('selected'));
+                
+                // Add selected class to clicked slot
+                slot.classList.add('selected');
+                selectedTimeField.value = slot.textContent;
+            });
+        });
+
+        // Form submission
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (!selectedTimeField.value) {
+                alert('Please select a time slot');
+                return;
+            }
+            
+            // Here you would typically send the form data to your server
+            alert(`Booking confirmed with ${therapistNameField.value} on ${document.getElementById('bookingDate').value} at ${selectedTimeField.value}`);
+            
+            // Reset form and close modal
+            this.reset();
+            timeSlots.forEach(s => s.classList.remove('selected'));
+            selectedTimeField.value = '';
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindSpace Mood Tracker</title>
+    <style>
+        /* Mood Tracker Styles */
+        .mood-tracker {
+            max-width: 500px;
+            margin: 30px auto;
+            padding: 25px;
+            background: #EFEAD8;
+            border-radius: 15px;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .mood-tracker h2 {
+            color: #6D8B74;
+            margin-bottom: 15px;
+        }
+        
+        .mood-emoji {
+            font-size: 60px;
+            margin: 20px 0;
+            transition: transform 0.3s;
+        }
+        
+        .mood-options {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 25px 0;
+        }
+        
+        .mood-btn {
+            background: white;
+            border: none;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .mood-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .mood-btn.selected {
+            background: #D0B8A8;
+            color: white;
+        }
+        
+        .mood-btn span {
+            font-size: 20px;
+        }
+        
+        .intensity-section {
+            margin: 25px 0;
+            display: none;
+        }
+        
+        .intensity-slider {
+            width: 100%;
+            margin: 15px 0;
+            -webkit-appearance: none;
+            height: 8px;
+            border-radius: 5px;
+            background: #D0B8A8;
+            outline: none;
+        }
+        
+        .intensity-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #6D8B74;
+            cursor: pointer;
+        }
+        
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #6D8B74;
+        }
+        
+        .submit-btn {
+            background: #6D8B74;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+            display: none;
+        }
+        
+        .submit-btn:hover {
+            background: #5a7262;
+            transform: translateY(-2px);
+        }
+        
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="mood-tracker">
+        <h2>How are you feeling today?</h2>
+        <p>Select your mood to track your emotional wellness</p>
+        
+        <div class="mood-emoji" id="mood-emoji">😊</div>
+        
+        <div class="mood-options">
+            <button class="mood-btn" data-mood="happy"><span>😊</span> Happy</button>
+            <button class="mood-btn" data-mood="calm"><span>😌</span> Calm</button>
+            <button class="mood-btn" data-mood="neutral"><span>😐</span> Neutral</button>
+            <button class="mood-btn" data-mood="sad"><span>😔</span> Sad</button>
+            <button class="mood-btn" data-mood="angry"><span>😠</span> Angry</button>
+            <button class="mood-btn" data-mood="anxious"><span>😟</span> Anxious</button>
+        </div>
+        
+        <div class="intensity-section" id="intensity-section">
+            <p>How strong is this feeling?</p>
+            <input type="range" min="1" max="10" value="5" class="intensity-slider" id="intensity-slider">
+            <div class="slider-labels">
+                <span>Mild</span>
+                <span>Moderate</span>
+                <span>Intense</span>
+            </div>
+        </div>
+        
+        <button class="submit-btn" id="submit-btn">Track My Mood</button>
+        
+        <div class="result" id="result">
+            <h3>Thank you for checking in!</h3>
+            <p id="result-text">Your mood has been recorded.</p>
+        </div>
+    </div>
+
+    <script>
+        // Game Elements
+        const moodBtns = document.querySelectorAll('.mood-btn');
+        const moodEmoji = document.getElementById('mood-emoji');
+        const intensitySection = document.getElementById('intensity-section');
+        const submitBtn = document.getElementById('submit-btn');
+        const result = document.getElementById('result');
+        const resultText = document.getElementById('result-text');
+        
+        // Mood Emoji Map
+        const moodEmojis = {
+            happy: '😊',
+            calm: '😌',
+            neutral: '😐',
+            sad: '😔',
+            angry: '😠',
+            anxious: '😟'
+        };
+        
+        // Mood Descriptions
+        const moodDescriptions = {
+            happy: "It's wonderful you're feeling happy!",
+            calm: "Peaceful moments are precious.",
+            neutral: "Every day can't be extraordinary, and that's okay.",
+            sad: "It's okay to feel sad sometimes. Be gentle with yourself.",
+            angry: "Anger is a natural emotion. Try some deep breathing.",
+            anxious: "Anxiety can be tough. Remember this feeling will pass."
+        };
+        
+        // Selected Mood
+        let currentMood = null;
+        
+        // Mood Selection
+        moodBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove selected class from all buttons
+                moodBtns.forEach(b => b.classList.remove('selected'));
+                
+                // Add selected class to clicked button
+                btn.classList.add('selected');
+                
+                // Set current mood
+                currentMood = btn.getAttribute('data-mood');
+                
+                // Update emoji display
+                moodEmoji.textContent = moodEmojis[currentMood];
+                
+                // Show intensity section
+                intensitySection.style.display = 'block';
+                
+                // Show submit button
+                submitBtn.style.display = 'block';
+            });
+        });
+        
+        // Submit Mood
+        submitBtn.addEventListener('click', () => {
+            const intensity = document.getElementById('intensity-slider').value;
+            
+            // Create result message
+            let message = `${moodDescriptions[currentMood]} `;
+            message += `You're feeling ${currentMood} at level ${intensity}/10.`;
+            
+            // Show result
+            resultText.textContent = message;
+            result.style.display = 'block';
+            
+            // Hide other elements
+            intensitySection.style.display = 'none';
+            submitBtn.style.display = 'none';
+            
+            // In a real app, you would save this data
+            console.log('Mood tracked:', {
+                mood: currentMood,
+                intensity: intensity,
+                date: new Date().toISOString()
+            });
+        });
+    </script>
+</body>
+</html>

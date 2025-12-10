@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MindSpace | Support</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+body {
+  background-color: #EFEAD8;
+  font-family: 'Poppins', sans-serif;
+}
+
+.container {
+  max-width: 600px;
+  margin: 120px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #6D8B74;
+  margin-bottom: 25px;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-family: 'Poppins', sans-serif;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 30px;
+  background: #6D8B74;
+  color: white;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #5a7461;
+}
+
+#successMsg {
+  text-align: center;
+  margin-top: 15px;
+  color: green;
+}
+</style>
+</head>
+
+<body>
+
+
+  <div class="container">
+
+  <!-- Home Button -->
+  <a href="index.html" style="text-decoration:none;">
+    <button style="
+      margin-bottom: 15px;
+      background: #D0B8A8;
+      color: #3D3D3D;
+    ">
+      ← Home
+    </button>
+  </a>
+
+  <h2>MindSpace – Mental Health Support Ticket</h2>
+
+
+  <form id="supportForm">
+    <input type="text" id="name" placeholder="Your Name" required>
+    <input type="email" id="email" placeholder="Your Email" required>
+
+    <select id="issue" required>
+      <option value="">Select Issue Type</option>
+      <option>Emotional Support</option>
+      <option>Stress & Anxiety</option>
+      <option>Sleep Issues</option>
+      <option>General Mental Health Query</option>
+      <option>Website Issue</option>
+    </select>
+
+    <textarea id="message" placeholder="Describe your issue" rows="4" required></textarea>
+
+    <button type="submit">Submit Ticket</button>
+  </form>
+
+  <p id="successMsg"></p>
+</div>
+
+<script src="support.js"></script>
+</body>
+</html>

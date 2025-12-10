@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin | Users</title>
+<style>
+body { font-family: Arial; background: #EFEAD8; }
+.container {
+  max-width: 800px;
+  margin: 80px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+th {
+  background: #6D8B74;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>Registered Users</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Role</th>
+      </tr>
+    </thead>
+    <tbody id="userTable"></tbody>
+  </table>
+</div>
+
+<script>
+let users = JSON.parse(localStorage.getItem("users")) || [];
+let table = document.getElementById("userTable");
+
+users.forEach(user => {
+  table.innerHTML += `
+    <tr>
+      <td>${user.name}</td>
+      <td>${user.email}</td>
+      <td>${user.role}</td>
+    </tr>
+  `;
+});
+</script>
+
+</body>
+</html>

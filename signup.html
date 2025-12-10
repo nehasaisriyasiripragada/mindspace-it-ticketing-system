@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up | MindSpace</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary: #6D8B74;
+  --secondary: #EFEAD8;
+  --text: #3D3D3D;
+}
+
+* { box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+body {
+  background: var(--secondary);
+  margin: 0;
+}
+
+header {
+  background: white;
+  padding: 15px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.nav-links a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+}
+
+.signup-box {
+  max-width: 500px;
+  margin: 80px auto;
+  background: white;
+  padding: 40px;
+  border-radius: 15px;
+}
+
+h2 { color: var(--primary); text-align: center; }
+
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 30px;
+}
+
+p { text-align: center; }
+
+</style>
+</head>
+
+<body>
+
+<header>
+  <nav>
+    <strong>MindSpace</strong>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="login.html">Login</a>
+    </div>
+  </nav>
+</header>
+
+<div class="signup-box">
+  <h2>Create Account</h2>
+
+  <form id="signupForm">
+    <input type="text" id="first-name" placeholder="First Name" required>
+    <input type="text" id="last-name" placeholder="Last Name" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+
+    <select id="user-type">
+      <option value="client">Client</option>
+      <option value="therapist">Therapist</option>
+    </select>
+
+    <label>
+      <input type="checkbox" id="terms" required> I agree to terms
+    </label>
+
+    <button type="submit">Create Account</button>
+    <p id="signupMsg"></p>
+  </form>
+</div>
+
+<script>
+document.getElementById("signupForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  let firstName = document.getElementById("first-name").value;
+  let lastName = document.getElementById("last-name").value;
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+  let confirm = document.getElementById("confirm-password").value;
+  let role = document.getElementById("user-type").value;
+
+  if (password !== confirm) {
+    signupMsg.innerText = "❌ Passwords do not match";
+    signupMsg.style.color = "red";
+    return;
+  }
+
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  if (users.find(user => user.email === email)) {
+    signupMsg.innerText = "❌ User already exists";
+    signupMsg.style.color = "red";
+    return;
+  }
+
+  users.push({
+    name: firstName + " " + lastName,
+    email,
+    password,
+    role
+  });
+
+  localStorage.setItem("users", JSON.stringify(users));
+
+  signupMsg.innerText = "✅ Account Created! Redirecting...";
+  signupMsg.style.color = "green";
+
+  setTimeout(() => {
+    window.location.href = "login.html";
+  }, 1500);
+});
+</script>
+
+</body>
+</html>

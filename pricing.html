@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing | MindSpace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6D8B74;
+            --secondary: #EFEAD8;
+            --accent: #D0B8A8;
+            --text: #3D3D3D;
+            --light: #F5F5F5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--secondary);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles (Same as other pages) */
+        header {
+            padding: 20px 0;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo i {
+            font-size: 28px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links a {
+            margin-left: 25px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Pricing Hero */
+        .pricing-hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(rgba(109, 139, 116, 0.1), rgba(239, 234, 216, 0.3));
+        }
+
+        .pricing-hero h1 {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .pricing-hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--primary);
+        }
+
+        /* Pricing Tabs */
+        .pricing-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .tab-btn {
+            padding: 15px 30px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+            position: relative;
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+        }
+
+        /* Pricing Plans */
+        .pricing-plans {
+            padding: 60px 0;
+        }
+
+        .plans-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .plan-card {
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .plan-card.popular {
+            border: 2px solid var(--primary);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            right: 20px;
+            background-color: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .plan-name {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .plan-price {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .plan-price span {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--text);
+        }
+
+        .plan-features {
+            margin-bottom: 30px;
+        }
+
+        .plan-features li {
+            list-style: none;
+            margin-bottom: 15px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .plan-features li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        .plan-features li.excluded {
+            opacity: 0.6;
+        }
+
+        .plan-features li.excluded::before {
+            content: '\f00d';
+            color: #ccc;
+        }
+
+        /* Insurance Section */
+        .insurance {
+            padding: 60px 0;
+            background-color: var(--light);
+        }
+
+        .insurance-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .insurance-container h2 {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 30px;
+        }
+
+        .insurance-logos {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .insurance-logo {
+            background-color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .insurance-logo img {
+            height: 30px;
+            width: auto;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 60px 0;
+            background-color: white;
+        }
+
+        .faq h2 {
+            text-align: center;
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 50px;
+        }
+
+        .faq-item {
+            background-color: var(--secondary);
+            margin-bottom: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .faq-question:hover {
+            background-color: rgba(109, 139, 116, 0.1);
+        }
+
+        .faq-answer {
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .faq-answer p {
+            padding: 0 0 20px;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+        }
+
+        /* Footer (Same as other pages) */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .social-icons {
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            margin: 0 10px;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-hero h1 {
+                font-size: 36px;
+            }
+            .plans-container {
+                grid-template-columns: 1fr;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <span>MindSpace</span>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="therapists.html">Therapists</a>
+                    <a href="pricing.html">Pricing</a>
+                    <a href="about.html">About</a>
+                    <a href="contact.html">Contact</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pricing-hero">
+        <div class="container">
+            <h1>Transparent Pricing</h1>
+            <p>Quality mental health care should be accessible. We offer flexible options to fit your needs and budget.</p>
+            <a href="therapists.html" class="btn btn-primary">Find Your Therapist</a>
+        </div>
+    </section>
+
+    <!-- Pricing Tabs -->
+    <section class="container">
+        <div class="pricing-tabs">
+            <button class="tab-btn active" data-tab="therapy">Therapy Sessions</button>
+        </div>
+    </section>
+
+    <!-- Therapy Plans -->
+    <section class="pricing-plans" id="therapy-tab">
+        <div class="container">
+            <div class="plans-container">
+                <!-- Individual Therapy -->
+                <div class="plan-card">
+                    <div class="plan-name">Individual Therapy</div>
+                    <div class="plan-price">$20<span>/session</span></div>
+                    <ul class="plan-features">
+                        <li>50-minute one-on-one session</li>
+                        <li>Personalized treatment plan</li>
+                        <li>Weekly or bi-weekly meetings</li>
+                        <li>Between-session support</li>
+                        <li>Progress tracking</li>
+                    </ul>
+                    <a href="therapists.html" class="btn btn-primary" style="width: 100%;">Book Now</a>
+                </div>
+
+                <!-- Couples Therapy -->
+                <div class="plan-card popular">
+                    <div class="popular-badge">Most Popular</div>
+                    <div class="plan-name">Couples Therapy</div>
+                    <div class="plan-price">$60<span>/session</span></div>
+                    <ul class="plan-features">
+                        <li>75-minute session for couples</li>
+                        <li>Conflict resolution strategies</li>
+                        <li>Communication skills building</li>
+                        <li>Personalized relationship plan</li>
+                        <li>Optional individual check-ins</li>
+                    </ul>
+                    <a href="therapists.html" class="btn btn-primary" style="width: 100%;">Book Now</a>
+                </div>
+
+                <!-- Group Therapy -->
+                <div class="plan-card">
+                    <div class="plan-name">Group Therapy</div>
+                    <div class="plan-price">$40<span>/session</span></div>
+                    <ul class="plan-features">
+                        <li>90-minute group session</li>
+                        <li>6-8 participants max</li>
+                        <li>Themed support groups available</li>
+                        <li>Peer support network</li>
+                        <li class="excluded">Individualized attention limited</li>
+                    </ul>
+                    <a href="therapists.html" class="btn btn-primary" style="width: 100%;">Join Group</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Insurance Section -->
+    <section class="insurance">
+        <div class="container insurance-container">
+            <h2>We Accept Most Insurance Plans:</h2>
+            <p>BlueCross</p> <p>Aetna </p> <p>Cigna</p> <p>Medicare</p> <p>Self Pay</p>
+            <p>Don't see your insurance provider? We offer affordable self-pay options and can provide superbills for out-of-network reimbursement.</p>
+            <a href="contact.html" class="btn btn-primary" style="margin-top: 20px;">Verify Your Insurance</a>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq">
+        <div class="container">
+            <h2>Pricing FAQs</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Do you offer sliding scale fees?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes, we offer income-based sliding scale fees starting at $60/session for those who qualify. Contact our support team with proof of income to apply.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>What's your cancellation policy?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>We require 24 hours notice for cancellations. Late cancellations are charged 50% of the session fee, except in emergencies.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Are there any additional fees?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Initial intake sessions are $20 more due to additional paperwork. All other fees are included in the session price unless otherwise discussed.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Do you offer package discounts?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes! Purchasing 4 sessions upfront gives you 5% off, and 8 sessions gives you 10% off. Packages must be used within 6 months.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="therapists.html">Therapists</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <p>&copy; 2023 MindSpace. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ functionality
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentNode;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Tab functionality
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                tabBtns.forEach(b => b.classList.remove('active'));
+                
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                // Here you would typically show/hide different pricing sections
+                // For this demo, we're only showing therapy pricing
+            });
+        });
+    </script>
+</body>
+</html>

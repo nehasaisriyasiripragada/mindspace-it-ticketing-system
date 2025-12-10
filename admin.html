@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MindSpace | Admin</title>
+
+<style>
+body {
+  background-color: #EFEAD8;
+  font-family: 'Poppins', sans-serif;
+}
+
+.container {
+  max-width: 900px;
+  margin: 100px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+h2 {
+  text-align: center;
+  color: #6D8B74;
+  margin-bottom: 25px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background: #6D8B74;
+  color: white;
+}
+
+button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.resolve {
+  background: #4CAF50;
+  color: white;
+}
+
+.delete {
+  background: #e74c3c;
+  color: white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+  <h2>Admin Dashboard – Support Tickets</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Issue</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="ticketTable"></tbody>
+  </table>
+</div>
+
+<script>
+let tickets = JSON.parse(localStorage.getItem("tickets")) || [];
+let table = document.getElementById("ticketTable");
+
+tickets.forEach((ticket, index) => {
+  table.innerHTML += `
+    <tr>
+      <td>${ticket.name}</td>
+      <td>${ticket.email}</td>
+      <td>${ticket.issue}</td>
+      <td>${ticket.status}</td>
+      <td>
+        <button class="resolve" onclick="resolveTicket(${index})">Resolve</button>
+        <button class="delete" onclick="deleteTicket(${index})">Delete</button>
+      </td>
+    </tr>
+  `;
+});
+
+function resolveTicket(index) {
+  tickets[index].status = "Resolved";
+  localStorage.setItem("tickets", JSON.stringify(tickets));
+  location.reload();
+}
+
+function deleteTicket(index) {
+  tickets.splice(index, 1);
+  localStorage.setItem("tickets", JSON.stringify(tickets));
+  location.reload();
+}
+</script>
+
+</body>
+</html>

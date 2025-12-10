@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5 Signs You Should Talk to a Therapist | MindSpace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === Global Styles === */
+        :root {
+            --primary: #6D8B74;
+            --secondary: #EFEAD8;
+            --accent: #D0B8A8;
+            --text: #3D3D3D;
+            --light: #F5F5F5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--secondary);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* === Header === */
+        header {
+            padding: 20px 0;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo i {
+            font-size: 28px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links a {
+            margin-left: 25px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* === Blog Article === */
+        .blog-article {
+            padding: 60px 0;
+            background-color: white;
+        }
+
+        .article-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .article-header h1 {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            color: var(--accent);
+            margin-bottom: 30px;
+        }
+
+        .article-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 40px;
+        }
+
+        .article-content {
+            padding: 0 20px;
+        }
+
+        .article-content h2 {
+            color: var(--primary);
+            margin: 30px 0 15px;
+            font-size: 24px;
+        }
+
+        .article-content p {
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .article-content ul, .article-content ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+
+        .article-content li {
+            margin-bottom: 10px;
+        }
+
+        .back-to-blog {
+            display: inline-block;
+            margin-top: 40px;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .back-to-blog:hover {
+            color: var(--accent);
+        }
+
+        .back-to-blog i {
+            margin-right: 8px;
+        }
+
+        /* === Footer === */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .social-icons {
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            margin: 0 10px;
+        }
+
+        /* === Responsive === */
+        @media (max-width: 768px) {
+            .article-header h1 {
+                font-size: 28px;
+            }
+            .article-image {
+                height: 250px;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <span>MindSpace</span>
+                </div>
+                <div class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="#">Therapists</a>
+                    <a href="blogs.html">Blog</a>
+                    <a href="#">About</a>
+                    <a href="#">Login</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Blog Article Content -->
+    <section class="blog-article">
+        <div class="container">
+            <div class="article-header">
+                <h1>5 Signs You Should Talk to a Therapist</h1>
+                <div class="article-meta">
+                    <span><i class="far fa-clock"></i> 5 min read</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Therapy session" class="article-image">
+            </div>
+
+            <div class="article-content">
+                <p>Mental health is just as important as physical health, yet many of us ignore the signs that we might need professional help. Here are five clear indicators that talking to a therapist could significantly improve your quality of life.</p>
+
+                <h2>1. Persistent Sadness or Anxiety</h2>
+                <p>If you've felt down, hopeless, or excessively anxious for more than two weeks, it might be more than just a "bad mood." Therapy can help uncover the root causes of these feelings and provide tools to manage them.</p>
+
+                <h2>2. Difficulty Handling Daily Tasks</h2>
+                <p>When getting out of bed, going to work, or maintaining relationships feels overwhelmingly difficult, a therapist can help you develop coping strategies and identify potential underlying issues like depression or ADHD.</p>
+
+                <h2>3. Trauma That Won't Fade</h2>
+                <p>If past traumatic experiences continue to affect your daily life through flashbacks, nightmares, or avoidance behaviors, specialized therapies like EMDR or trauma-focused CBT can help process these memories.</p>
+
+                <h2>4. Relationship Struggles</h2>
+                <p>Constant conflicts with partners, family members, or coworkers may indicate communication issues or unresolved personal patterns that therapy can address.</p>
+
+                <h2>5. Physical Symptoms Without Clear Cause</h2>
+                <p>Unexplained aches, digestive issues, or sleep disturbances often have psychological roots. A therapist can help connect these physical symptoms to emotional states.</p>
+
+                <h2>Taking the First Step</h2>
+                <p>Remember that seeking help is a sign of strength, not weakness. Most people report significant improvement within 8-12 sessions. Start by reaching out to your primary care physician or searching for therapists who specialize in your specific concerns.</p>
+
+                <a href="index.html" class="back-to-home"><i class="fas fa-arrow-left"></i> Back to Home</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="therapists.html">Therapists</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <p>&copy; MindSpace. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

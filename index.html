@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindSpace | Mental Wellness Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* === Global Styles === */
+        :root {
+            --primary: #6D8B74;
+            --secondary: #EFEAD8;
+            --accent: #D0B8A8;
+            --text: #3D3D3D;
+            --light: #F5F5F5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--secondary);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* === Header & Logo === */
+        header {
+            padding: 20px 0;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .logo i {
+            font-size: 28px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links a {
+            margin-left: 25px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* === Hero Section === */
+        .hero {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(109, 139, 116, 0.1), rgba(239, 234, 216, 0.3));
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* === Features Section === */
+        .features {
+            padding: 60px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background-color: var(--secondary);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-card i {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+        }
+
+        /* === Dashboard Preview === */
+        .dashboard {
+            padding: 60px 0;
+            background-color: var(--light);
+        }
+
+        .dashboard-preview {
+            background-color: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .dashboard-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: var(--secondary);
+        }
+
+        .dashboard-item i {
+            font-size: 24px;
+            margin-right: 15px;
+            color: var(--primary);
+        }
+
+        /* === Quotes Section === */
+        .quotes {
+            padding: 60px 0;
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        .quote-slide {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .quote-slide i {
+            font-size: 30px;
+            margin-bottom: 20px;
+            opacity: 0.7;
+        }
+
+        .quote-slide p {
+            font-size: 22px;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        .quote-slide .author {
+            font-weight: 600;
+        }
+
+        /* === Blog Section === */
+        .blog {
+            padding: 60px 0;
+            background-color: white;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .blog-card {
+            background-color: var(--secondary);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .blog-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .blog-content {
+            padding: 20px;
+        }
+
+        .blog-content h3 {
+            margin-bottom: 10px;
+        }
+
+        .blog-content a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        /* === Healing Gallery === */
+        .gallery {
+            padding: 60px 0;
+            background-color: var(--light);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-item {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item p {
+            padding: 15px;
+            text-align: center;
+            background-color: white;
+        }
+
+        /* === Footer === */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .social-icons {
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            margin: 0 10px;
+        }
+
+        /* === Responsive Adjustments === */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-brain"></i>
+                    <span>MindSpace</span>
+                </div>
+                <div class="nav-links">
+                    <a href="#">Home</a>
+                    <a href="therapists.html">Therapists</a>
+                    <a href="blogs.html">Blogs</a> <!-- Anchor link to blog section -->
+                    <a href="about.html">About</a>
+                    <a href="login.html">Login</a>
+                    <a href="support.html">Support</a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Your Journey to Inner Peace Starts Here</h1>
+            <p>Connect with licensed therapists, practice self-care, and prioritize your mental wellness—anytime, anywhere.</p>
+            <div class="cta-buttons">
+                <a href="therapists.html" class="btn btn-primary">Find a Therapist</a>
+                <a href="about.html" class="btn btn-secondary">Learn More</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">How MindSpace Helps You</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-user-md"></i>
+                    <h3>Therapist Matching</h3>
+                    <p>Find your perfect therapist in minutes.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-comment-dots"></i>
+                    <h3>Anonymous Chat</h3>
+                    <p>Talk freely, no judgments.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-spa"></i>
+                    <h3>Guided Meditation</h3>
+                    <p>Relax with curated mindfulness sessions.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Mood Tracker</h3>
+                    <p>Monitor your emotional well-being.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Preview -->
+    <section class="dashboard">
+        <div class="container">
+            <h2 class="section-title">Your Wellness Dashboard</h2>
+            <div class="dashboard-preview">
+                <div class="dashboard-item">
+                    <i class="fas fa-calendar-check"></i>
+                    <div>
+                        <h3>Gratitude log</h3>
+                        <p>Note one thing you are thankful for to boost positivity.</p>
+                    </div>
+                </div>
+                <div class="dashboard-item">
+                    <i class="fas fa-smile"></i>
+                    <div>
+                        <h3>Today's Mood</h3> 
+                        <p>How are you feeling today?</p><a href="moodtracker.html">MOOD TRACKER GAME</a>
+                    </div>
+                </div>
+                <div class="dashboard-item">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h3>Quick Meditation</h3>
+                        <p>5-minute breathing exercise.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Inspirational Quotes -->
+    <section class="quotes">
+        <div class="container">
+            <h2 class="section-title">Words of Healing</h2>
+            <div class="quote-slide">
+                <i class="fas fa-quote-left"></i>
+                <p>"You don’t have to control your thoughts. You just have to stop letting them control you."</p>
+                <p class="author">— Dan Millman</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="blog" id="blog-section"> <!-- Added ID for navigation -->
+        <div class="container">
+            <h2 class="section-title">MindSpace Blog</h2>
+            <div class="blog-grid">
+                <!-- Blog 1 -->
+                <div class="blog-card">
+                    <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Therapy session">
+                    <div class="blog-content">
+                        <h3>5 Signs You Should Talk to a Therapist</h3>
+                        <p>Recognize when it's time to seek professional help for your mental health.</p>
+                        <a href="blog-1.html" target="_blank">Read More →</a> <!-- Link to detailed blog -->
+                    </div>
+                </div>
+                <!-- Blog 2 -->
+                <div class="blog-card">
+                    <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Meditation">
+                    <div class="blog-content">
+                        <h3>Breathing Techniques for Instant Calm</h3>
+                        <p>Simple exercises to reduce anxiety in minutes.</p>
+                        <a href="blog-2.html" target="_blank">Read More →</a>
+                    </div>
+                </div>
+                <!-- Blog 3 -->
+                <div class="blog-card">
+                    <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Healthy mind">
+                    <div class="blog-content">
+                        <h3>How to Build Emotional Resilience Within</h3>
+                        <p>Strengthen your ability to cope with life's challenges.</p>
+                        <a href="blog-3.html" target="_blank">Read More →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Healing Gallery -->
+    <section class="gallery">
+        <div class="container">
+            <h2 class="section-title">Moments of Peace</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Sunset">
+                    <p>Nature heals the soul</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1173&q=80" alt="Yoga">
+                    <p>Find balance within</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1102&q=80" alt="Tea time">
+                    <p>Small rituals, big peace</p>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Mountain view">
+                    <p>Perspective is everything</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="therapists.html">Therapists</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+            <p>&copy; 2023 MindSpace. All rights reserved.</p>
+        </div>
+    </footer>
+    <!-- Add this anywhere before your closing </body> tag -->
+<div class="chatbot-widget">
+  <div class="chatbot-header" onclick="toggleChatbot()">
+    <div class="bot-avatar">🤖</div>
+    <span>MindSpace Buddy</span>
+    <div class="chatbot-toggle">+</div>
+  </div>
+  
+  <div class="chatbot-container">
+    <div class="chatbot-messages" id="chatbot-messages">
+      <div class="bot-message">
+        <div class="bot-avatar">🤖</div>
+        <div class="message-content">
+          <p>Hi there! I'm your anonymous mental health buddy. How are you feeling today?</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="chatbot-input">
+      <input type="text" id="user-input" placeholder="Type your message..." autocomplete="off">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+    
+    <div class="chatbot-disclaimer">
+      <p><small>This is an anonymous chat. Conversations are not stored.</small></p>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Chatbot Widget Styles */
+  .chatbot-widget {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 350px;
+    font-family: 'Poppins', sans-serif;
+    z-index: 1000;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    background: white;
+    transform: translateY(calc(100% - 50px));
+    transition: transform 0.3s ease;
+  }
+  
+  .chatbot-widget.open {
+    transform: translateY(0);
+  }
+  
+  .chatbot-header {
+    background: #6D8B74;
+    color: white;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 15px 15px 0 0;
+  }
+  
+  .bot-avatar {
+    width: 40px;
+    height: 40px;
+    background: #D0B8A8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+  
+  .chatbot-header span {
+    flex-grow: 1;
+    font-weight: 500;
+  }
+  
+  .chatbot-toggle {
+    font-size: 20px;
+    transition: transform 0.3s;
+  }
+  
+  .chatbot-widget.open .chatbot-toggle {
+    transform: rotate(45deg);
+  }
+  
+  .chatbot-container {
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .chatbot-widget.open .chatbot-container {
+    height: 400px;
+  }
+  
+  .chatbot-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background: #EFEAD8;
+  }
+  
+  .bot-message {
+    display: flex;
+    margin-bottom: 15px;
+  }
+  
+  .user-message {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 15px;
+  }
+  
+  .message-content {
+    max-width: 70%;
+    padding: 10px 15px;
+    border-radius: 15px;
+  }
+  
+  .bot-message .message-content {
+    background: white;
+    border-radius: 0 15px 15px 15px;
+    margin-left: 10px;
+  }
+  
+  .user-message .message-content {
+    background: #6D8B74;
+    color: white;
+    border-radius: 15px 0 15px 15px;
+  }
+  
+  .chatbot-input {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    background: white;
+  }
+  
+  .chatbot-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    outline: none;
+  }
+  
+  .chatbot-input button {
+    background: #6D8B74;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 0 15px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  
+  .chatbot-disclaimer {
+    padding: 5px 15px;
+    background: #EFEAD8;
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+  }
+  
+  @media (max-width: 500px) {
+    .chatbot-widget {
+      width: 90%;
+      right: 5%;
+      bottom: 20px;
+    }
+  }
+</style>
+
+<script>
+  // Simple chatbot functionality
+  function toggleChatbot() {
+    document.querySelector('.chatbot-widget').classList.toggle('open');
+  }
+  
+  function sendMessage() {
+    const input = document.getElementById('user-input');
+    const message = input.value.trim();
+    if (message === '') return;
+    
+    // Add user message
+    const messagesContainer = document.getElementById('chatbot-messages');
+    messagesContainer.innerHTML += `
+      <div class="user-message">
+        <div class="message-content">
+          <p>${message}</p>
+        </div>
+      </div>
+    `;
+    
+    input.value = '';
+    
+    // Simple bot responses (in a real app, connect to an AI API)
+    setTimeout(() => {
+      let botResponse = getBotResponse(message);
+      messagesContainer.innerHTML += `
+        <div class="bot-message">
+          <div class="bot-avatar">🤖</div>
+          <div class="message-content">
+            <p>${botResponse}</p>
+          </div>
+        </div>
+      `;
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }, 500);
+  }
+  
+  // Basic response logic (replace with API calls in production)
+  function getBotResponse(message) {
+    const lowerMsg = message.toLowerCase();
+    
+    if (lowerMsg.includes('hello') || lowerMsg.includes('hi')) {
+      return "Hello there! How can I support you today?";
+    } else if (lowerMsg.includes('anxious') || lowerMsg.includes('stress')) {
+      return "I hear you're feeling anxious. Try this breathing exercise: Breathe in for 4 seconds, hold for 7, exhale for 8. Would you like more coping strategies?";
+    } else if (lowerMsg.includes('sad') || lowerMsg.includes('depress')) {
+      return "I'm sorry you're feeling this way. Remember emotions are temporary. Would writing down your thoughts help?";
+    } else if (lowerMsg.includes('angry') || lowerMsg.includes('mad')) {
+      return "Anger is a natural emotion. Try stepping away for a 5-minute walk if possible. Want to talk about what's bothering you?";
+    } else if (lowerMsg.includes('thank')) {
+      return "You're very welcome! I'm here whenever you need to talk.";
+    } else {
+      const randomResponses = [
+        "I'm listening. Can you tell me more about that?",
+        "That sounds challenging. How has this been affecting you?",
+        "I appreciate you sharing. What would help you feel better?",
+        "Your feelings are valid. Would you like some resources to help?"
+      ];
+      return randomResponses[Math.floor(Math.random() * randomResponses.length)];
+    }
+  }
+  
+  // Allow pressing Enter to send
+  document.getElementById('user-input').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      sendMessage();
+    }
+  });
+</script>
+</body>
+</html>
